@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>longest palindromic substring</title>
+</head>
+<body>
+	<script>
+		
+		/*
+		Input: "babad"
+		Output: "bab"
+		Note: "aba" is also a valid answer.
+		*/
+		/*
+		Input: "cbbd"
+		Output: "bb"
+		*/
+
+		function longestPalindrome(str){
+			var arr = [],
+				con = str.split(''),
+				len = con.length,
+				result = [],
+				maxlen = 0;
+
+			for(var i=0;i<=len;i++){
+				for(var j =i+1;j<=len-1;j++){
+					if(i != len-1){
+						arr.push(con.slice(i,j).join(''));
+						if(j === len-1){
+							arr.push(con.slice(i).join(''));
+						}
+					}
+				}
+			}
+			arr.push(con.slice(len-1).join(''));
+			
+			arr.forEach(function(ele){
+				if(isPalindrome(ele)){
+					result.push(ele);
+				}
+			})
+		
+			var res = [];
+
+			result.forEach(function(ele,index,self){
+				if(ele.length === maxlen){
+					res.push(ele);
+				}if(ele.length > maxlen){z
+					maxlen = ele.length;
+					res.splice(0,res.length);
+					res.push(ele);
+				}
+			});
+			return res;
+		}
+
+
+		function isPalindrome(str){
+			var len = str.length;
+
+			var content = str.split('');
+
+			if(len%2 !== 0){
+				content.splice(parseInt(len/2),1);
+				len = len - 1;
+				while(len>0){
+					if(content.shift() !== content.pop()){
+						return false;
+					}
+					len = content.length;
+				}
+				return true;
+			}else{
+				while(len>0){
+					if(content.shift() !== content.pop()){
+						return false;
+					}
+					len = content.length;
+				}
+				return true;
+			}
+		}
+
+		var res = longestPalindrome("babad");
+		console.log(res);
+
+	</script>
+</body>
+</html>
