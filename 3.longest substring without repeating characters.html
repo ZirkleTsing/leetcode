@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>longest substring without repeating characters</title>
+</head>
+<body>
+	
+	<script>
+		var str1 = 'abcabcbb',  
+      		str2 = 'bbbbb',
+      		str3 = 'pwwkew',
+      		str4 = 'dvdf',
+      		str5 = 'dvfgdve',
+      		str6 = 'abacaa';
+
+      	var object = function getLongestSubstring(str){
+
+      		var arr = [],
+      		 	length = 0,
+      		 	result = [];
+
+      		str.split('').forEach(function(ele,index){
+      			var curPos = arr.indexOf(ele);
+      			if(curPos < 0){
+      				arr.push(ele);
+      				if(arr.length > length){
+      					result.splice(0,result.length);	//清空数组
+      					length = arr.length;
+      				}
+      			}else{
+      				if(arr.length >= length){	/*length变化后的下一个数字加入后情况*/
+      					result.push(arr);
+      				}
+      				arr = arr.slice(curPos + 1);
+      				arr.push(ele);
+      				if((arr.length == length) && (index == str.split('').length-1)){ /*最后一个数字边界情况*/
+      					result.push(arr);
+      				}
+      			}
+      		});
+
+      		return {
+      			arr: result,
+      			maxLength: length
+      		};
+      	}(str1);
+
+      	console.log(object);
+	</script>
+
+</body>
+</html>
