@@ -35,6 +35,53 @@ Input is guaranteed to be within the range from 1 to 3999.
 */
 var intToRoman = function(num) {
 	var result = [];
+	var str = num + "";
+	var strNum = str.split("");
+	var count = 1;
+    var mapHundred = ['0','C','CC','CCC','CD','D','DC','DCC','DCCC','CM'];
+    var mapTen = ['0','X','XX','XXX','XL','L','LX','LXX','LXXX','XC']
+    var mapBit = ['0','I','II','III','IV','V','VI','VII','VIII','IX'];
+    console.log(strNum);
+    for(var i = strNum.length-1; i>=0; i--){
+    	if(count === 1){
+    		let bit = parseInt(strNum[i]);
+    		if(bit !== 0){
+    			result.unshift(mapBit[bit]);
+    		}
+    		count++;
+    	}
+    	else if(count === 2){
+    		let ten = parseInt(strNum[i]);
+    		if(ten !== 0){
+    			result.unshift(mapTen[parseInt(strNum[i])]);
+    		}
+    		count++;
+    	}
+    	else if(count === 3){
+    		let hundred = parseInt(strNum[i]);
+    		if(hundred !== 0){
+   	    		result.unshift(mapHundred[parseInt(strNum[i])]);
+    		}
+    		count++;
+    	}
+    	else if(count === 4){
+    		let thousand = parseInt(strNum[i]);
+    		while(thousand !== 0){
+    			result.unshift("M");
+    			thousand--;
+    		}
+    	}
+    }
+    return result.join('');
+};
+
+console.log(intToRoman(2010));
+
+
+
+/*
+var intToRoman = function(num) {
+	var result = [];
     var thousand = Math.floor(num/1000);
     num = num - thousand * 1000;
     var hundred = Math.floor(num/100);
@@ -61,5 +108,4 @@ var intToRoman = function(num) {
 
     return result.join('');
 };
-
-console.log(intToRoman(1996));
+*/
